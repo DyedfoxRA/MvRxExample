@@ -1,7 +1,8 @@
-package com.example.mvrxexample
+package com.example.mvrxexample.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.mvrxexample.R
 
 class MainActivity : AppCompatActivity() {
 
