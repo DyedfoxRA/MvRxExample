@@ -7,15 +7,11 @@ class MvRxApp : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        initKoin()
         initStetho()
     }
 
-    private fun initKoin(){
-
-    }
-    private fun initStetho(){
-        if(BuildConfig.DEBUG)
+    private fun initStetho() {
+        if (BuildConfig.DEBUG)
             Stetho.initializeWithDefaults(this)
     }
 }
