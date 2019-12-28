@@ -10,6 +10,9 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$stetho_version"
     implementation "com.facebook.stetho:stetho-okhttp3:$stetho_version"
 
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
     implementation "com.airbnb.android:mvrx:$mv_rx_version"
     implementation "com.airbnb.android:epoxy:$epoxy_version"
     kapt "com.airbnb.android:epoxy-processor:$epoxy_version"
