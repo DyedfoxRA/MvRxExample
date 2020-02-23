@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MvRxExample</string>
+    <string name="home_title">Home</string>
+    <string name="info_title">Info</string>
+    <string name="settings_title">Settings</string>
+
+    <!-- Switch -->
+    <string name="switch_title">Switch</string>
+    <string name="switch_description">if you enable it nothing will change just put state to sharePrefs</string>
+
+    <string name="error_internet_disconnected">Error with connection to Internet</string>
 </resources>
