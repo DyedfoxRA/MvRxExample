@@ -19,10 +19,17 @@ dependencies {
     kapt "com.squareup.inject:assisted-inject-processor-dagger2:$assisted_inject_version"
     compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$assisted_inject_version"
 
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
-
-
 
 
     testImplementation("androidx.test:core:1.2.1-alpha02")
