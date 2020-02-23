@@ -7,4 +7,6 @@
     <!-- Switch -->
     <string name="switch_title">Switch</string>
     <string name="switch_description">if you enable it nothing will change just put state to sharePrefs</string>
+
+    <string name="error_internet_disconnected">Error with connection to Internet</string>
 </resources>
