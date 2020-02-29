@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape>
-            <gradient
-                    android:angle="225"
-                    android:startColor="#64065A"
-                    android:endColor="#022B49"
-                    android:type="linear"/>
-        </shape>
-    </item>
-</selector>
+<animation-list xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/gradient_1" android:duration="4000" tools:ignore="StateListReachable" />
+
+    <item android:drawable="@drawable/gradient_2" android:duration="4000" tools:ignore="StateListReachable" />
+
+    <item android:drawable="@drawable/gradient_3" android:duration="4000" tools:ignore="StateListReachable" />
+</animation-list>
