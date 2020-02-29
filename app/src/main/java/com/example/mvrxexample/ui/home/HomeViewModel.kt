@@ -15,14 +15,14 @@ class HomeViewModel(
     private val rxTransformer: Transformer
 ) : BaseViewModel<HomeState>(initialState) {
 
-    init {
-        preLoadCurrency()
-    }
+//    init {
+//        preLoadCurrency()
+//    }
 
     fun preLoadCurrency() {
         getCurrencyFromRemote()
             .applySchedulers(rxTransformer)
-            .execute { copy(currency = it()) }
+            .execute { copy(currency = it) }
     }
 
     companion object : MvRxViewModelFactory<HomeViewModel, HomeState> {
