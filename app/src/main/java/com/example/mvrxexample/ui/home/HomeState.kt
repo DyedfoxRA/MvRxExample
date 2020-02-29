@@ -4,5 +4,5 @@ import com.airbnb.mvrx.MvRxState
 import com.example.mvrxexample.domain.model.Currency
 
 data class HomeState(
-    val currency: Currency?
+    val currency: Currency? = Currency()
 ) : MvRxState

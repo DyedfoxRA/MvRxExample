@@ -14,6 +14,7 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     implementation "com.airbnb.android:mvrx:$mv_rx_version"
+    implementation "com.airbnb.android:mvrx-testing:$mv_rx_version"
     implementation "com.airbnb.android:epoxy:$epoxy_version"
     kapt "com.airbnb.android:epoxy-processor:$epoxy_version"
     kapt "com.squareup.inject:assisted-inject-processor-dagger2:$assisted_inject_version"

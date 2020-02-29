@@ -19,7 +19,7 @@ class HomeViewModel(
         preLoadCurrency()
     }
 
-    private fun preLoadCurrency() {
+    fun preLoadCurrency() {
         getCurrencyFromRemote()
             .applySchedulers(rxTransformer)
             .execute { copy(currency = it()) }
