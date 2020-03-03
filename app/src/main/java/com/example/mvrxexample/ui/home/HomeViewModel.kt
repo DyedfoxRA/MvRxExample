@@ -15,9 +15,9 @@ class HomeViewModel(
     private val rxTransformer: Transformer
 ) : BaseViewModel<HomeState>(initialState) {
 
-//    init {
-//        preLoadCurrency()
-//    }
+    init {
+        preLoadCurrency()
+    }
 
     fun preLoadCurrency() {
         getCurrencyFromRemote()

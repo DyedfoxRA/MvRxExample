@@ -22,8 +22,6 @@ class HomeFragment : BaseEpoxyFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        homeViewModel.preLoadCurrency()
     }
 
     override fun invalidate() = withState(homeViewModel) { state ->
@@ -35,13 +33,11 @@ class HomeFragment : BaseEpoxyFragment() {
             if (state.currency !is Success)
                 return@simpleController
 
-            if (state.currency is Success) {
-                renderCurrencyRow(state.currency())
+            renderCurrencyRow(state.currency())
 
-                renderHeaderRow()
+            renderHeaderRow()
 
-                renderRateRow(state.currency())
-            }
+            renderRateRow(state.currency())
         }
 
     private fun EpoxyController.renderCurrencyRow(currency: Currency?) {
