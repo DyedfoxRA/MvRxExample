@@ -22,7 +22,7 @@ class HomeViewModel(
     fun preLoadCurrency() {
         getCurrencyFromRemote()
             .applySchedulers(rxTransformer)
-            .execute { copy(currency = it()) }
+            .execute { copy(currency = it) }
     }
 
     companion object : MvRxViewModelFactory<HomeViewModel, HomeState> {
