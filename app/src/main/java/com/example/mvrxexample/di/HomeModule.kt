@@ -10,6 +10,8 @@ internal val homeModule = module {
         HomeViewModel(
             state,
             getCurrencyFromRemote = get(),
+            moveSelectedElementToFirstPosition = get(),
+            calculateCurrencies = get(),
             rxTransformer = get()
         )
     }

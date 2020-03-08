@@ -5,7 +5,6 @@ import android.view.View
 import com.airbnb.epoxy.EpoxyController
 import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.fragmentViewModel
-import com.airbnb.mvrx.withState
 import com.example.mvrxexample.R
 import com.example.mvrxexample.domain.model.Currency
 import com.example.mvrxexample.ui.base.BaseEpoxyFragment
@@ -14,6 +13,7 @@ import com.example.mvrxexample.ui.base.simpleController
 import com.example.mvrxexample.ui.home.views.currencyRow
 import com.example.mvrxexample.ui.home.views.headerRow
 import com.example.mvrxexample.ui.home.views.rateRow
+import kotlinx.android.synthetic.main.placeholder_rate_row.*
 
 class HomeFragment : BaseEpoxyFragment() {
 
@@ -24,18 +24,10 @@ class HomeFragment : BaseEpoxyFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun invalidate() = withState(homeViewModel) { state ->
-        println("AAA ${state.currency}")
-    }
-
     override fun epoxyController(): MvRxEpoxyController =
         simpleController(homeViewModel) { state ->
             if (state.currency !is Success)
                 return@simpleController
-
-            renderCurrencyRow(state.currency())
-
-            renderHeaderRow()
 
             renderRateRow(state.currency())
         }
@@ -59,7 +51,29 @@ class HomeFragment : BaseEpoxyFragment() {
             rateRow {
                 id("${rate.name}")
                 name(rate.name)
-                value(rate.number.toString())
+                value((rate.number * rate.value).toString())
+                clickListener { _ ->
+                    homeViewModel.renderListInCorrectOrder(rate, currency)
+                }
+                println("AAA ${rate.number}")
+
+//                onChange {
+//                    homeViewModel.showRatesValue(
+//                        rate.,
+//                        currency
+//                    )
+//                }
+//                onChange { homeViewModel.showRatesValue() }
+//                try {
+//
+//                    onChange {
+//                        homeViewModel.showRatesValue(
+//                            requireActivity().rate_value.text.toString(),
+//                            currency
+//                        )
+//                    }
+//                } catch (e: Exception) {
+//                }
             }
         }
     }

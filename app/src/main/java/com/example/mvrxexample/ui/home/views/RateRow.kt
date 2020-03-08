@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
 import com.airbnb.epoxy.CallbackProp
 import com.airbnb.epoxy.ModelView
 import com.airbnb.epoxy.TextProp
@@ -27,8 +28,16 @@ class RateRow @JvmOverloads constructor(
     }
 
     @TextProp
-    fun value(title: CharSequence) {
-        rate_value.text = title
+    fun value(value: CharSequence) {
+        rate_value.setText(value)
+    }
+
+    @CallbackProp
+    fun number1(onNum: ((String) -> Unit)?) = rate_value.text
+
+    @CallbackProp
+    fun setOnChange(onChange: ((String) -> Unit)?) {
+        rate_value.doOnTextChanged { text, start, count, after -> onChange?.invoke(text.toString()) }
     }
 
     @CallbackProp
