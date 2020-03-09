@@ -2,6 +2,8 @@ package com.example.mvrxexample.ui.home
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.doOnTextChanged
 import com.airbnb.epoxy.EpoxyController
 import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.fragmentViewModel
@@ -14,28 +16,31 @@ import com.example.mvrxexample.ui.base.simpleController
 import com.example.mvrxexample.ui.home.views.currencyRow
 import com.example.mvrxexample.ui.home.views.headerRow
 import com.example.mvrxexample.ui.home.views.rateRow
+import com.example.mvrxexample.utils.exeptions.doOnMotionEventDetected
+import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.ext.android.inject
 
 class HomeFragment : BaseEpoxyFragment() {
 
     override val layoutId = R.layout.fragment_home
     private val homeViewModel: HomeViewModel by fragmentViewModel()
+    private val inputMethodManager: InputMethodManager by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
     }
 
     override fun invalidate() = withState(homeViewModel) { state ->
-        println("AAA ${state.currency}")
+        super.invalidate()
+        if (state.selectedCurrency is Success)
+            currency_main.text = state.selectedCurrency()?.name
     }
 
     override fun epoxyController(): MvRxEpoxyController =
         simpleController(homeViewModel) { state ->
             if (state.currency !is Success)
                 return@simpleController
-
-            renderCurrencyRow(state.currency())
-
-            renderHeaderRow()
 
             renderRateRow(state.currency())
         }
@@ -59,8 +64,32 @@ class HomeFragment : BaseEpoxyFragment() {
             rateRow {
                 id("${rate.name}")
                 name(rate.name)
-                value(rate.number.toString())
+                value("%.2f".format(rate.number * rate.value))
+                clickListener { _ ->
+                    homeViewModel.selectCurrency(rate)
+                }
             }
         }
+    }
+
+    private fun initListeners() {
+
+        cancel.setOnClickListener {
+            homeViewModel.cancelSearch()
+            enter_value.text.clear()
+            homeViewModel.calculateCurrencies1("1")
+        }
+
+        enter_value.doOnTextChanged { text, _, _, _ ->
+            homeViewModel.calculateCurrencies1(text.toString())
+        }
+
+        recyclerView.doOnMotionEventDetected {
+            hideSoftKeyboard()
+        }
+    }
+
+    private fun hideSoftKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(enter_value.windowToken, 0)
     }
 }
