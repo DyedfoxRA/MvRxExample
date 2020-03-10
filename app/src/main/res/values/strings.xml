@@ -9,4 +9,8 @@
     <string name="switch_description">if you enable it nothing will change just put state to sharePrefs</string>
 
     <string name="error_internet_disconnected">Error connecting to Internet</string>
+
+    <!-- Home -->
+    <string name="edit_value">Enter value</string>
+    <string name="selected_rate">Currency</string>
 </resources>

@@ -11,8 +11,7 @@ internal val homeModule = module {
             state,
             getCurrencyFromRemote = get(),
             calculateCurrencies = get(),
-            rxTransformer = get(),
-            ioTransformer = get()
+            rxTransformer = get()
         )
     }
 }

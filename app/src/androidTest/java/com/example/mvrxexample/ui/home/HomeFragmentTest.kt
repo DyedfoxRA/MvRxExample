@@ -13,4 +13,28 @@ class HomeFragmentTest : KoinTest {
             hasProperLayout()
         }
     }
+
+    @Test
+    fun invalidate_currency_main_text() {
+        homeFragment {
+            startWithDefaultBackground()
+            isSelectedCurrencyDisplayed()
+        }
+    }
+
+    @Test
+    fun invalidate_shows_edit_text() {
+        homeFragment {
+            startWithDefaultBackground()
+            isEditTextDisplayed()
+        }
+    }
+
+    @Test
+    fun invalidate_shows_cancel_text() {
+        homeFragment {
+            startWithDefaultBackground()
+            isEditTextDisplayed()
+        }
+    }
 }

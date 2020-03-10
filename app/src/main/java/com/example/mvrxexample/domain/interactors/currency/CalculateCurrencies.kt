@@ -8,24 +8,25 @@ class CalculateCurrencies(
     private val getCurrencyFromRemote: GetCurrencyFromRemote
 ) {
 
-    operator fun invoke(value: Double, rate: Rate): Observable<Currency> =
-        getCurrencyFromRemote().flatMapObservable {
-            Observable.just(Currency(it.name, cal(value, it.rates, rate), it.date))
-        }
-
-    private fun cal(value: Double, rates: List<Rate>, rate1: Rate): MutableList<Rate> {
-        val newList: MutableList<Rate> = mutableListOf()
-        for (rate in rates) {
-            newList.add(
-                Rate(
-                    rate.name,
-                    rate.value,
-                    cutNumberTwoDigitsAfterComma(rate.value * value / rate1.value)
+    operator fun invoke(value: Double, selectedRate: Rate): Observable<Currency> =
+        getCurrencyFromRemote().flatMapObservable { currency ->
+            Observable.just(
+                Currency(
+                    currency.name,
+                    currency.rates.calculate(value, selectedRate),
+                    currency.date
                 )
             )
         }
-        return newList
-    }
+
+    private fun List<Rate>.calculate(value: Double, selectedRate: Rate): List<Rate> =
+        map { rate ->
+            Rate(
+                rate.name,
+                rate.value,
+                cutNumberTwoDigitsAfterComma(rate.value * value / selectedRate.value)
+            )
+        }
 
     private fun cutNumberTwoDigitsAfterComma(number: Double) =
         "%.2f".format(number).toDouble()

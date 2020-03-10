@@ -10,6 +10,7 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import com.example.mvrxexample.R
 import com.example.mvrxexample.domain.model.Currency
+import com.example.mvrxexample.domain.model.Rate
 import com.example.mvrxexample.ui.base.BaseEpoxyFragment
 import com.example.mvrxexample.ui.base.MvRxEpoxyController
 import com.example.mvrxexample.ui.base.simpleController
@@ -29,6 +30,10 @@ class HomeFragment : BaseEpoxyFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
+
+        withState(homeViewModel) { state ->
+            homeViewModel.selectCurrency(state.currency()?.rates?.first() ?: Rate())
+        }
     }
 
     override fun invalidate() = withState(homeViewModel) { state ->
@@ -62,9 +67,9 @@ class HomeFragment : BaseEpoxyFragment() {
     private fun EpoxyController.renderRateRow(currency: Currency?) {
         currency?.rates?.forEach { rate ->
             rateRow {
-                id("${rate.name}")
+                id(rate.name)
                 name(rate.name)
-                value("%.2f".format(rate.number * rate.value))
+                value(rate.number.toString())
                 clickListener { _ ->
                     homeViewModel.selectCurrency(rate)
                 }
@@ -77,11 +82,11 @@ class HomeFragment : BaseEpoxyFragment() {
         cancel.setOnClickListener {
             homeViewModel.cancelSearch()
             enter_value.text.clear()
-            homeViewModel.calculateCurrencies1("1")
+            homeViewModel.calculateCurrency("1")
         }
 
         enter_value.doOnTextChanged { text, _, _, _ ->
-            homeViewModel.calculateCurrencies1(text.toString())
+            homeViewModel.calculateCurrency(text.toString())
         }
 
         recyclerView.doOnMotionEventDetected {

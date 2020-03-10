@@ -16,8 +16,7 @@ class HomeViewModel(
     initialState: HomeState,
     private val getCurrencyFromRemote: GetCurrencyFromRemote,
     private val calculateCurrencies: CalculateCurrencies,
-    private val rxTransformer: Transformer,
-    private val ioTransformer: Transformer
+    private val rxTransformer: Transformer
 ) : BaseViewModel<HomeState>(initialState) {
 
     init {
@@ -32,11 +31,11 @@ class HomeViewModel(
 
     fun selectCurrency(rate: Rate) {
         Single.just(rate)
-            .applySchedulers(ioTransformer)
+            .applySchedulers(rxTransformer)
             .execute { copy(selectedCurrency = it) }
     }
 
-    fun calculateCurrencies1(number: String) {
+    fun calculateCurrency(number: String) {
         withState { state ->
             if (number.isNotEmpty())
                 calculateCurrencies(number.toDouble(), state.selectedCurrency() ?: Rate())
