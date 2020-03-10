@@ -10,6 +10,7 @@ internal val homeModule = module {
         HomeViewModel(
             state,
             getCurrencyFromRemote = get(),
+            calculateCurrencies = get(),
             rxTransformer = get()
         )
     }
